@@ -30,3 +30,123 @@
     width: 0;
     height: 0;
 }
+
+#dialogo_provincia {
+    width: 200px;
+    height: 80px;
+    font-size: 16px;
+    background: pink;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.46);
+    text-align: center;
+    padding: 10px 10px 75px 10px;
+    color: white;
+    position: absolute;
+    left: 776px;
+    top: 178px;
+    line-height: 70px;
+}
+
+
+#dialogo_provincia:before {
+    content: "";
+
+    border-top: 43px solid pink;
+    border-right: 80px solid transparent;
+    border-left: 3px solid  transparent;
+    position: absolute;
+    right: 80px;
+    top: 80px;
+    width: 0;
+    height: 0;
+}
+
+#dialogo_provincia2 {
+    width: 200px;
+    height: 80px;
+    font-size: 16px;
+    background: salmon;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.46);
+    text-align: center;
+    padding: 20px 10px 55px 10px;
+    color: white;
+    position: absolute;
+    left: 776px;
+    top: 177px;
+
+}
+
+
+#dialogo_provincia2:before {
+    content: "";
+
+    border-top: 43px solid salmon;
+    border-right: 80px solid transparent;
+    border-left: 3px solid  transparent;
+    position: absolute;
+    right: 80px;
+    top: 80px;
+    width: 0;
+    height: 0;
+}
+
+#dialogo_distrito2 {
+    width: 200px;
+    height: 80px;
+    font-size: 16px;
+    background: black;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.46);
+    text-align: center;
+    padding: 20px 10px 55px 10px;
+    color: white;
+    position: absolute;
+    left: 1110px;
+    top: 178px;
+
+}
+
+
+#dialogo_distrito2:before {
+    content: "";
+
+    border-top: 43px solid black;
+    border-right: 80px solid transparent;
+    border-left: 3px solid  transparent;
+    position: absolute;
+    right: 80px;
+    top: 80px;
+    width: 0;
+    height: 0;
+}
+
+#dialogo_distrito {
+    width: 200px;
+    height: 80px;
+    font-size: 16px;
+    background: orange;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.46);
+    text-align: center;
+    padding: 20px 10px 55px 10px;
+    color: white;
+    position: absolute;
+    left: 1110px;
+    top: 178px;
+    line-height: 40px;
+}
+
+
+#dialogo_distrito:before {
+    content: "";
+
+    border-top: 43px solid orange;
+    border-right: 80px solid transparent;
+    border-left: 3px solid  transparent;
+    position: absolute;
+    right: 80px;
+    top: 80px;
+    width: 0;
+    height: 0;
+}

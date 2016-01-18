@@ -34,42 +34,42 @@
 								<div class="panel panel-white">
 
 									<div class="panel-body">
-										<form role="form" class="form-horizontal" action="<?php  ?>">
+										<form method="post" role="form" class="form-horizontal" action="<?php echo site_url("Personal_c/nuevo_personal"); ?>">
 											<div class="row">
 
 												<div class="col-md-4">
 													<label class="control-label">DNI</label>
-													<input type="text" placeholder="Digite su DNI" class="form-control">
+													<input required name="dni" type="text" placeholder="Digite su DNI" class="form-control">
 												</div>
 												<div class="col-md-4">
 													<label class="control-label">NOMBRES</label>
-													<input type="text" placeholder="Digite sus Nombres" class="form-control">
+													<input required name="nombres" type="text" placeholder="Digite sus Nombres" class="form-control">
 												</div>
 												<div class="col-md-4">
 													<label class="control-label">APELLIDO PATERNO</label>
-													<input type="text" placeholder="Digite su Apellido Paterno" class="form-control">
+													<input required name="apellido_paterno" type="text" placeholder="Digite su Apellido Paterno" class="form-control">
 												</div>
 
 												<br><br><br><br>
 
 												<div class="col-md-4">
 													<label class="control-label">APELLIDO MATERNO</label>
-													<input type="text" placeholder="Digite su Apellido Materno" class="form-control">
+													<input required name="apellido_materno" type="text" placeholder="Digite su Apellido Materno" class="form-control">
 												</div>
 												<div class="col-md-4">
 													<label class="control-label">EMAIL</label>
-													<input type="text" placeholder="Digite su correo" class="form-control">
+													<input required name="email" type="text" placeholder="Digite su correo" class="form-control">
 												</div>
 												<div class="col-md-4">
 													<label class="control-label">TELEFONO</label>
-													<input type="text" placeholder="Digite su Teléfono" class="form-control">
+													<input required name="telefono" type="text" placeholder="Digite su Teléfono" class="form-control">
 												</div>
 
 												<br><br><br><br>
 
 												<div class="col-md-4">
 													<label class="control-label">DEPARTAMENTO</label>
-													<?php echo form_dropdown('iddepartamento', $departamentos, '', 'class="form-control"'); ?>
+													<?php echo form_dropdown('iddepartamento', $departamentos, '', 'class="form-control" required'); ?>
 												</div>
 
 												<div class="col-md-4">
@@ -77,14 +77,14 @@
 													<div id="provincia">
 														<?php
 														$options = array("" => "Seleccione Provincia");
-														echo form_dropdown('idprovincia', $options, '', 'class="form-control"'); ?>
+														echo form_dropdown('idprovincia', $options, '', 'class="form-control" required'); ?>
 													</div>
 												</div>
 
 												<div class="col-md-4">
 													<label class="control-label">DISTRITO</label>
 													<div id="distrito">
-														<?php echo form_dropdown('iddistrito', array("" => "Seleccione Distrito"), '', 'class="form-control"'); ?>
+														<?php echo form_dropdown('iddistrito', array("" => "Seleccione Distrito"), '', 'class="form-control" required'); ?>
 													</div>
 												</div>
 
@@ -93,21 +93,29 @@
 												<div class="col-md-4">
 													<label class="control-label">SECTOR</label>
 													<div id="sector">
-														<?php echo form_dropdown('idsector', array("" => "Seleccione Sector"), '', 'class="form-control"'); ?>
+														<?php echo form_dropdown('idsector', array("" => "Seleccione Sector"), '', 'class="form-control" required'); ?>
 													</div>
 
 												</div>
 												<div class="col-md-1 ">
 													<br>
-													<a class="btn btn-green add-row" data-target=".bs-example-modal-sm" data-toggle="modal" style="margin-top: 10px; margin-left: -10;">
+													<a id= "btn_modal" class="btn btn-green add-row"  style="margin-top: 10px; margin-left: -10;">
 														<i class="fa fa-plus"></i>
 													</a>
 												</div>
 
 												<div class="col-md-4">
 													<label class="control-label">DIRECCION</label>
-													<input type="text" placeholder="Digite su Dirección" class="form-control">
+													<input  required name="direccion" type="text" placeholder="Digite su Dirección" class="form-control">
 												</div>
+
+												<div class="col-md-3">
+													<br>
+													<button type="submit" id="btn_enviar" class="btn btn-green add-row"  style="margin-top: 5px; margin-left:30px;">
+														Grabar Datos <i class="fa fa-plus"></i>
+													</button>
+												</div>
+
 											</div>
 
 										</form>
@@ -122,11 +130,31 @@
 			<!-- end: PAGE -->
 		</div>
 	</div>
-	 <div id="dialogo_departamento" style="display:none">
-	            Por Favor! Seleccione Primero un Departamento
-	  </div>
+	<!-- sector -->
+	<div id="dialogo_departamento" style="display:none">
+		Por Favor! Seleccione Primero un Departamento
+	</div>
 
-			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div id="dialogo_provincia" style="display:none">
+			Luego una Provincia!
+	</div>
+
+	<div id="dialogo_distrito" style="display:none">
+		Y Despues un Distrito!
+
+	</div>
+
+	<!-- individuales -->
+	<div id="dialogo_provincia2" style="display:none">
+		Por Favor! Seleccione Antes una Provincia
+	</div>
+	<div id="dialogo_distrito2" style="display:none">
+		Por Favor! Seleccione Antes un Distrito
+	</div>
+
+
+
+			<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -163,17 +191,15 @@
 
 		$("select[name=iddepartamento]").change(function(){
 			$("select[name=iddepartamento] option:selected").each(function(){
-
 				if($(this).val() == "")
 				{
 					$("#provincia").empty();
-					$("#provincia").html("<select name='idprovincia' class='form-control'><option value=''>Seleccione Provincia</option></select>");
+					$("#provincia").html("<select name='idprovincia' class='form-control'><option value='' selected>Seleccione Provincia</option></select>");
 				}
 				else
 				{
 					$.post("<?php echo site_url('Personal_c/traer_provincia'); ?>",{iddepartamento:this.value},response_provincia);
 				}
-
 
 			});
 			function response_provincia(info)
@@ -184,50 +210,133 @@
 
 		});
 
-		$("select[name=idprovincia]").click(function (){
+
+
+
+		$("#provincia").click(function (){
 			var iddepartamento = $("select[name=iddepartamento]").val();
 			if(iddepartamento == "")
 			{
-				   $("#dialogo_departamento").css("display","block");
-				      setTimeout ('desaparecer()', 1000);
+			   $("#dialogo_departamento").css("display","block");
+			   setTimeout('desaparecer(1)', 1000);
 			}
 		});
 
-		$("select[name=iddistrito]").click(function (){
+		$("#distrito").click(function (){
 			var iddepartamento = $("select[name=iddepartamento]").val();
-			if(iddepartamento == "")
-			{
-				   $("#dialogo_departamento").css("display","block");
+			var idprovincia = $("select[name=idprovincia]").val();
 
+			if(iddepartamento == "" && idprovincia == "")
+			{
+				$("#dialogo_departamento").css("display","block");
+				setTimeout('dialogo_provincia()',500);
+				setTimeout('desaparecer(2)', 1000);
 			}
+			else
+			{
+				if(iddepartamento != "" && idprovincia == "")
+				{
+					$("#dialogo_provincia2").css("display","block");
+					setTimeout('desaparecer(3)', 1000);
+				}
+			}
+
 		});
 
-		function desaparecer()
+		$("#sector").click(validacion_region);
+
+		function validacion_region()
 		{
-			$("#dialogo_departamento").fadeOut("slow");
+			var iddepartamento = $("select[name=iddepartamento]").val();
+			var idprovincia = $("select[name=idprovincia]").val();
+			var iddistrito = $("select[name=iddistrito]").val();
+
+			if(iddepartamento == "" && idprovincia == "" && iddistrito == "")
+			{
+				$("#dialogo_departamento").css("display","block");
+				setTimeout('dialogo_provincia()',500);
+				setTimeout('dialogo_distrito()',1000);
+				setTimeout('desaparecer(4)', 3000);
+				return true;
+			}
+			else
+			{
+				if(iddepartamento != "" && idprovincia == "" && iddistrito == "")
+				{
+					$("#dialogo_provincia2").css("display","block");
+					setTimeout('dialogo_distrito()',500);
+					setTimeout('desaparecer(5)', 2000);
+					return true;
+				}
+				else
+				{
+					if(iddepartamento != "" && idprovincia != "" && iddistrito == "")
+					{
+						$("#dialogo_distrito2").css("display","block");
+						setTimeout('desaparecer(6)', 1000);
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			}
+		}
+
+		function dialogo_provincia()
+		{
+			$("#dialogo_provincia").css("display","block");
+		}
+
+		function dialogo_distrito()
+		{
+			$("#dialogo_distrito").css("display","block");
+		}
+
+		function desaparecer(caso)
+		{
+			switch(caso)
+			{
+				case 1:
+					$("#dialogo_departamento").fadeOut("slow");
+					break;
+				case 2:
+					$("#dialogo_departamento").fadeOut("slow");
+					$("#dialogo_provincia").fadeOut("slow");
+					break;
+				case 3:
+					$("#dialogo_provincia2").fadeOut("slow");
+					break;
+				case 4:
+					$("#dialogo_departamento").fadeOut("slow");
+					$("#dialogo_provincia").fadeOut("slow");
+					$("#dialogo_distrito").fadeOut("slow");
+					break;
+				case 5:
+					$("#dialogo_provincia2").fadeOut("slow");
+					$("#dialogo_distrito").fadeOut("slow");
+					break;
+				case 6:
+					$("#dialogo_distrito2").fadeOut("slow");
+					break;
+			}
 		}
 
 		function traer_distrito(idprovincia)
 		{
 			var idprovincia = $("select[name=idprovincia]").val();
-
 			if(idprovincia == "")
 			{
 
-				  $("#dialogo").css("visibility","visible");
+				$("#distrito").empty();
+				$("#distrito").html("<select name='iddistrito' class='form-control'><option value='' selected >Seleccione Distrito</option></select>");
 			}
 			else
 			{
-				if(idprovincia == "")
-				{
-					$("#distrito").empty();
-					$("#distrito").html("<select name='iddistrito' class='form-control'><option value=''>Seleccione Distrito</option></select>");
-				}
-				else
-				{
-					$.post("<?php echo site_url('Personal_c/traer_distrito'); ?>",{idprovincia:idprovincia},response_distrito);
-				}
+				$.post("<?php echo site_url('Personal_c/traer_distrito'); ?>",{idprovincia:idprovincia},response_distrito);
 			}
+
 		}
 
 
@@ -244,7 +353,7 @@
 			if(iddistrito == "")
 			{
 				$("#sector").empty();
-				$("#sector").html("<select name='idsector' class='form-control'><option value=''>Seleccione Sector</option></select>");
+				$("#sector").html("<select name='idsector' class='form-control'><option value='' selected >Seleccione Sector</option></select>");
 			}
 			else
 			{
@@ -258,21 +367,37 @@
 			$("#sector").html(info);
 		}
 
+		$("#btn_modal").click(function(){
+			var decision = validacion_region();
+			if(decision == false)
+			{
+				$('#myModal').modal('show');
+			}
+
+		})
+
 		$("#boton").click(function(){
+
 			var iddistrito = $("select[name=iddistrito]").val();
 			var nuevo_sector = $("input[name=nuevo_sector]").val();
-			alert(iddistrito+" el nuevo sector es : "+nuevo_sector);
-			// var sector = $("").val();
 			$.post("<?php echo site_url('Personal_c/insert_nuevo_sector'); ?>",{iddistrito:iddistrito,nuevo_sector:nuevo_sector},response_nuevo_sector);
 		});
 
 		function response_nuevo_sector(data)
 		{
-			$("#sector").empty();
-			$("#sector").html(data);
-			$("input[name=nuevo_sector]").val("");
+			info = data.split("|");
+			if(info[0] == "1")
+			{
+				$("#sector").empty();
+				$("#sector").html(data);
+				$("input[name=nuevo_sector]").val("");
+				alerta_message("Se Guardó Correctamente","Mensaje","success");
+			}
+			else
+			{
+				alerta_message("Hubo un error al insertar","Mensaje","error");
+			}
 		}
-
 
 
 		function alerta_message(msg,title,method)
@@ -284,55 +409,7 @@
             $toastlast = $toast;
 		}
 
-		function message_nothing()
-		{
-          swal({
-                title: "No deje vacio el campo!",
-                // text: "Here's a custom image.",
-                imageUrl: "<?php echo base_url().'public/images/dedo.png';?>"
-            });
-        }
 
-        function message_nothing2()
-		{
-          swal({
-                title: "No puede insertar un campo vacio, Por Favor llenelo!",
-                // text: "Here's a custom image.",
-                imageUrl: "<?php echo base_url().'public/images/dedo.png';?>"
-            });
-        }
-
-        function eliminar_perfil(idperfil)
-        {
-        	$.post("<?php echo site_url('Perfiles_c/delete_perfil'); ?>",{idperfil:idperfil},respuesta_de_la_eliminacion);
-        }
-
-        function respuesta_de_la_eliminacion(rpta)
-        {
-        	var respta = rpta.split("-");
-        	if(respta[0] == 1)
-			{
-				alerta_message("Se Eliminó Correctamente","Mensaje","success");
-				$("#tabla_perfil").empty();
-				$("#tabla_perfil").append(respta[1]);
-			}
-			else
-			{
-				alerta_message("Error al eliminar","Mensaje","error");
-				$("#tabla_perfil").empty();
-				$("#tabla_perfil").append(respta[1]);
-			}
-        }
-
-
-        function alerta()
-		{
-          swal({
-                title: "No primero termine de realizar la operacion!",
-                // text: "Here's a custom image.",
-                imageUrl: "<?php echo base_url().'public/images/dedo.png';?>"
-            });
-        }
 
 
 	</script>

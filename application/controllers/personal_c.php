@@ -107,15 +107,28 @@ class Personal_c extends CI_Controller {
 	{
 
 		$r = $this->Personal_m->insertar_nuevo_sector();
-		$this->traer_sector();
-		// if($r)
-		// {
-		// 	echo 1;
-		// }
-		// else
-		// {
-		// 	echo 0;
-		// }
+
+		if($r)
+		{
+			echo "1|".$this->traer_sector();
+		}
+		else
+		{
+			echo "0|".$this->traer_sector();
+		}
+	}
+
+	public function nuevo_personal()
+	{
+		if($this->input->post())
+		{
+
+		}
+		else
+		{
+
+		}
+
 	}
 }
 
