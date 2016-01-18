@@ -39,19 +39,44 @@ class Personal_c extends CI_Controller {
 
 	public function nuevo()
 	{
-		$permisos = $this->Principal_m->traer_modulos();
-		$departamentos = $this->Personal_m->get_departamentos();
-		$depa = array();
-		$depa[""] = "Seleccione Departamento";
 
-		foreach ($departamentos as $value)
+		if($this->input->post())
 		{
-			$depa[$value->iddepartamento] = $value->departamento;
+			if($this->input->post("id_empleado"))
+			{
+				$r = $this->Personal_m->modificar();
+			}
+			else
+			{
+				$r = $this->Personal_m->insertar();
+				if($r)
+				{
+					echo '<script>alerta_message("Se Guardó Correctamente","Mensaje","success");</script>';
+				}
+				else
+				{
+					echo '<script>alerta_message("Error al Guardar Empleado","Mensaje","error");</script>';
+				}
+			}
+			// redirect("Personal_c");
 		}
+		// else
+		// {
+		// 	$permisos = $this->Principal_m->traer_modulos();
+		// 	$departamentos = $this->Personal_m->get_departamentos();
+		// 	$depa = array();
+		// 	$depa[""] = "Seleccione Departamento";
 
-		$data["departamentos"] = $depa;
-		$data["permisos"] = $permisos;
-		$this->load->view('seguridad/personal/nuevo_v',$data);
+		// 	foreach ($departamentos as $value)
+		// 	{
+		// 		$depa[$value->iddepartamento] = $value->departamento;
+		// 	}
+
+		// 	$data["departamentos"] = $depa;
+		// 	$data["permisos"] = $permisos;
+
+		// 	$this->load->view('seguridad/personal/nuevo_v',$data);
+		// }
 	}
 
 	public function traer_provincia()
@@ -110,26 +135,17 @@ class Personal_c extends CI_Controller {
 
 		if($r)
 		{
-			echo "1|".$this->traer_sector();
+			$res = $this->traer_sector()."|1";
+			echo $res;
 		}
 		else
 		{
-			echo "0|".$this->traer_sector();
+			$res = $this->traer_sector()."|0";
+			echo $res;
 		}
 	}
 
-	public function nuevo_personal()
-	{
-		if($this->input->post())
-		{
 
-		}
-		else
-		{
-
-		}
-
-	}
 }
 
 /* End of file welcome.php */

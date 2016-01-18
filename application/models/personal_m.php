@@ -8,17 +8,24 @@ class Personal_m extends CI_Model {
 
     }
 
-    public function guardar_perfil()
+    public function insertar()
     {
 
-
         $datos = array(
-
-            "descripcion" => $this->input->post("descripcion"),
+            "dni" => $this->input->post("dni"),
+            "direccion" => $this->input->post("direccion"),
+            "email" => $this->input->post("email"),
+            "sector" => $this->input->post("idsector"),
+            "nombre" => $this->input->post("nombres"),
+            "apellido_paterno" => $this->input->post("apellido_paterno"),
+            "apellido_materno" => $this->input->post("apellido_materno"),
+            "clave" => $this->input->post("dni"),
+            "telefono" => $this->input->post("telefono"),
+            "usuario" => $this->input->post("dni"),
             "estado" => "1"
             );
 
-        $r = $this->db->insert("perfil_usuario",$datos);
+        $r = $this->db->insert("empleado",$datos);
         return $r;
     }
 

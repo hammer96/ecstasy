@@ -34,7 +34,7 @@
 								<div class="panel panel-white">
 
 									<div class="panel-body">
-										<form method="post" role="form" class="form-horizontal" action="<?php echo site_url("Personal_c/nuevo_personal"); ?>">
+										<form method="post" role="form" class="form-horizontal" action="<?php echo site_url("Personal_c/nuevo"); ?>">
 											<div class="row">
 
 												<div class="col-md-4">
@@ -386,10 +386,10 @@
 		function response_nuevo_sector(data)
 		{
 			info = data.split("|");
-			if(info[0] == "1")
+			if(info[1] == "1")
 			{
 				$("#sector").empty();
-				$("#sector").html(data);
+				$("#sector").html(info[0]);
 				$("input[name=nuevo_sector]").val("");
 				alerta_message("Se Guardó Correctamente","Mensaje","success");
 			}

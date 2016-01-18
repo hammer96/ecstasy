@@ -79,7 +79,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'postgres';
-$db['default']['password'] = 'zarria1996';
+$db['default']['password'] = '123';
 $db['default']['database'] = 'ecstasy';
 $db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
