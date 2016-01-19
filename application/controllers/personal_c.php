@@ -51,32 +51,52 @@ class Personal_c extends CI_Controller {
 				$r = $this->Personal_m->insertar();
 				if($r)
 				{
-					echo '<script>alerta_message("Se Guardó Correctamente","Mensaje","success");</script>';
+					echo '
+					<script src="'.base_url()."public/assets/js/ui-notifications.js".'"></script>
+							<script>
+							jQuery(document).ready(function() {
+								UINotifications.init();
+							});
+							</script>
+							<script>
+
+								function alerta_message(msg,title,method)
+								{
+									var shortCutFunction = method;
+						            var msg = msg;
+						            var title = title || "";
+						            var $toast = toastr[shortCutFunction](msg, title);
+						            $toastlast = $toast;
+								}
+								alerta_message("Se Guardó Correctamente","Mensaje","success");
+								alert("nothing");
+							</script>
+							';
 				}
 				else
 				{
-					echo '<script>alerta_message("Error al Guardar Empleado","Mensaje","error");</script>';
+					echo '<script>alert("pichurria")</script>';
 				}
 			}
 			// redirect("Personal_c");
 		}
-		// else
-		// {
-		// 	$permisos = $this->Principal_m->traer_modulos();
-		// 	$departamentos = $this->Personal_m->get_departamentos();
-		// 	$depa = array();
-		// 	$depa[""] = "Seleccione Departamento";
+		else
+		{
+			$permisos = $this->Principal_m->traer_modulos();
+			$departamentos = $this->Personal_m->get_departamentos();
+			$depa = array();
+			$depa[""] = "Seleccione Departamento";
 
-		// 	foreach ($departamentos as $value)
-		// 	{
-		// 		$depa[$value->iddepartamento] = $value->departamento;
-		// 	}
+			foreach ($departamentos as $value)
+			{
+				$depa[$value->iddepartamento] = $value->departamento;
+			}
 
-		// 	$data["departamentos"] = $depa;
-		// 	$data["permisos"] = $permisos;
+			$data["departamentos"] = $depa;
+			$data["permisos"] = $permisos;
 
-		// 	$this->load->view('seguridad/personal/nuevo_v',$data);
-		// }
+			$this->load->view('seguridad/personal/nuevo_v',$data);
+		}
 	}
 
 	public function traer_provincia()
