@@ -1,7 +1,7 @@
 
 <style>
 	.check{
-		width: 245px;
+		width: 225px;
 		float: left;
 	}
 	.clear{

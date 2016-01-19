@@ -50,7 +50,7 @@
 															<th>Empleado</th>
 															<th>E-mail</th>
 															<th>Direccion</th>
-															<th>Teléfono/Celular</th>
+															<th>Teléfono</th>
 															<th></th>
 															<th></th>
 														</tr>
@@ -62,7 +62,7 @@
 															<td><?php echo $value->nombre." ".$value->apellido_paterno." ".$value->apellido_materno; ?></td>
 															<td><?php echo $value->email; ?></td>
 															<td><?php echo $value->direccion; ?></td>
-															<td><?php echo $value->telefono." / ".$value->celular ?></td>
+															<td><?php echo $value->telefono; ?></td>
 
 															<td class="center">
 																<div class="visible-md visible-lg hidden-sm hidden-xs">

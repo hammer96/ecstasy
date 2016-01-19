@@ -7,10 +7,41 @@ class Personal_c extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Personal_m');
 		$this->load->model('Principal_m');
+		$this->load->model('Perfiles_m');
 		$this->load->helper("form");
 
 	}
 
+	public function insert_nuevo_perfil()
+	{
+		$r = $this->Perfiles_m->guardar_perfil();
+		if($r)
+		{
+			$res = $this->traer_perfil()."|1";
+			echo $res;
+		}
+		else
+		{
+			$res = $this->traer_perfil()."|0";
+			echo $res;
+		}
+	}
+
+	public function traer_perfil()
+	{
+
+		$distritos = $this->Perfiles_m->todos();
+		$array = array();
+		$array[""] = "Seleccione Perfil";
+
+		foreach ($distritos as $value)
+		{
+			$array[$value->id_perfil_usuario] = $value->descripcion;
+		}
+
+		echo form_dropdown('idperfil_usuario', $array, '', 'class="form-control"');
+
+	}
 
 	public function index()
 	{
@@ -51,31 +82,11 @@ class Personal_c extends CI_Controller {
 				$r = $this->Personal_m->insertar();
 				if($r)
 				{
-					echo '
-					<script src="'.base_url()."public/assets/js/ui-notifications.js".'"></script>
-							<script>
-							jQuery(document).ready(function() {
-								UINotifications.init();
-							});
-							</script>
-							<script>
-
-								function alerta_message(msg,title,method)
-								{
-									var shortCutFunction = method;
-						            var msg = msg;
-						            var title = title || "";
-						            var $toast = toastr[shortCutFunction](msg, title);
-						            $toastlast = $toast;
-								}
-								alerta_message("Se Guardó Correctamente","Mensaje","success");
-								alert("nothing");
-							</script>
-							';
+					echo 1;
 				}
 				else
 				{
-					echo '<script>alert("pichurria")</script>';
+					echo 0;
 				}
 			}
 			// redirect("Personal_c");
@@ -84,16 +95,24 @@ class Personal_c extends CI_Controller {
 		{
 			$permisos = $this->Principal_m->traer_modulos();
 			$departamentos = $this->Personal_m->get_departamentos();
+			$perfil = $this->Perfiles_m->todos();
 			$depa = array();
+			$perfiles = array();
 			$depa[""] = "Seleccione Departamento";
-
+			$perfiles[""] = "Seleccione Perfil";
 			foreach ($departamentos as $value)
 			{
 				$depa[$value->iddepartamento] = $value->departamento;
 			}
 
+			foreach ($perfil as $value)
+			{
+				$perfiles[$value->id_perfil_usuario] = $value->descripcion;
+			}
+
 			$data["departamentos"] = $depa;
 			$data["permisos"] = $permisos;
+			$data["perfiles"] = $perfiles;
 
 			$this->load->view('seguridad/personal/nuevo_v',$data);
 		}

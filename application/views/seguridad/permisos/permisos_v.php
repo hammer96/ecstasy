@@ -14,7 +14,7 @@
 
 	<style>
 		.check{
-			width: 245px;
+			width: 225px;
 			float: left;
 		}
 		.clear{
@@ -64,7 +64,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="panel-body" style="box-sizing: border-box; padding: 15px 15px 15px 60px!important; min-height:528px;">
+						<div class="panel-body" style="box-sizing: border-box; padding: 15px 15px 15px 45px!important; min-height:528px;">
 							<div id="permisos">
 								<?php $i=0; $encontrados = array(); ?>
 								<?php foreach ($permisos2 as $value) { ?>

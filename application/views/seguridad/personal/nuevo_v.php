@@ -34,37 +34,39 @@
 								<div class="panel panel-white">
 
 									<div class="panel-body">
-										<form method="post" role="form" class="form-horizontal" action="<?php echo site_url("Personal_c/nuevo"); ?>">
+										<form class="form-horizontal" >  <!-- action="<?php echo site_url("Personal_c/nuevo"); ?>" -->
 											<div class="row">
-
-												<div class="col-md-4">
+												<div class="col-md-2">
 													<label class="control-label">DNI</label>
-													<input required name="dni" type="text" placeholder="Digite su DNI" class="form-control">
+													<input maxlength="8" required name="dni" type="text" placeholder="Digite su DNI" class="form-control">
 												</div>
 												<div class="col-md-4">
 													<label class="control-label">NOMBRES</label>
 													<input required name="nombres" type="text" placeholder="Digite sus Nombres" class="form-control">
 												</div>
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<label class="control-label">APELLIDO PATERNO</label>
 													<input required name="apellido_paterno" type="text" placeholder="Digite su Apellido Paterno" class="form-control">
+												</div>
+												<div class="col-md-3">
+													<label class="control-label">APELLIDO MATERNO</label>
+													<input required name="apellido_materno" type="text" placeholder="Digite su Apellido Materno" class="form-control">
 												</div>
 
 												<br><br><br><br>
 
 												<div class="col-md-4">
-													<label class="control-label">APELLIDO MATERNO</label>
-													<input required name="apellido_materno" type="text" placeholder="Digite su Apellido Materno" class="form-control">
-												</div>
-												<div class="col-md-4">
 													<label class="control-label">EMAIL</label>
 													<input required name="email" type="text" placeholder="Digite su correo" class="form-control">
 												</div>
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<label class="control-label">TELEFONO</label>
 													<input required name="telefono" type="text" placeholder="Digite su Teléfono" class="form-control">
 												</div>
-
+												<div class="col-md-5">
+													<label class="control-label">DIRECCION</label>
+													<input  required name="direccion" type="text" placeholder="Digite su Dirección" class="form-control">
+												</div>
 												<br><br><br><br>
 
 												<div class="col-md-4">
@@ -99,21 +101,32 @@
 												</div>
 												<div class="col-md-1 ">
 													<br>
-													<a id= "btn_modal" class="btn btn-green add-row"  style="margin-top: 10px; margin-left: -10;">
+													<a id= "btn_modal_sector" class="btn btn-green add-row"  style="margin-top: 10px; margin-left: -10;">
+														<i class="fa fa-plus"></i>
+													</a>
+												</div>
+												<div class="col-md-4">
+													<label class="control-label">PERFIL DE USUARIO</label>
+													<div id="perfil">
+														<?php echo form_dropdown('idperfil_usuario', $perfiles, '', 'class="form-control" required'); ?>
+													</div>
+												</div>
+
+												<div class="col-md-1 ">
+													<br>
+													<a id= "btn_modal_perfil" class="btn btn-green add-row"  style="margin-top: 10px; margin-left: -10;">
 														<i class="fa fa-plus"></i>
 													</a>
 												</div>
 
-												<div class="col-md-4">
-													<label class="control-label">DIRECCION</label>
-													<input  required name="direccion" type="text" placeholder="Digite su Dirección" class="form-control">
-												</div>
+												<br><br><br><br><br>
 
-												<div class="col-md-3">
-													<br>
-													<button type="submit" id="btn_enviar" class="btn btn-green add-row"  style="margin-top: 5px; margin-left:30px;">
-														Grabar Datos <i class="fa fa-plus"></i>
-													</button>
+												<div class="col-md-12">
+													<center>
+														<button id="btn_enviar" class="btn btn-green add-row"  style="margin-top: 5px; margin-left:30px;">
+															GRABAR DATOS <i class="fa fa-plus"></i>
+														</button>
+													</center>
 												</div>
 
 											</div>
@@ -170,7 +183,7 @@
 
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary" data-dismiss="modal" id="boton" type="button">
+							<button class="btn btn-primary" data-dismiss="modal" id="boton_sector" type="button">
 								Guardar
 							</button>
 							<button data-dismiss="modal" class="btn btn-default" type="button">
@@ -183,11 +196,103 @@
 				</div>
 			</div>
 
+
+			<div class="modal fade bs-example-modal-sm" id="myModal_perfil" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+								×
+							</button>
+							<h4 id="myLargeModalLabel" class="modal-title">Nuevo Perfil de Usuario</h4>
+						</div>
+						<div class="modal-body">
+
+							<label class="control-label">Perfil de Usuario</label>
+							<input type="text" name="nuevo_perfil" placeholder="Escriba el nuevo Perfil" class="form-control">
+
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" id="boton_perfil" type="button">
+								Guardar
+							</button>
+							<button data-dismiss="modal" class="btn btn-default" type="button">
+								Cancelar
+							</button>
+
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</div>
 	<?php include('includes/pie.inc');?>
 
 	<?php include('includes/js_principal.inc');?>
 
 	<script>
+		$("#btn_modal_perfil").click(function(){
+			$('#myModal_perfil').modal('show');
+		})
+
+		$("#boton_perfil").click(function(){
+			var descripcion = $("input[name=nuevo_perfil]").val();
+			$.post("<?php echo site_url('Personal_c/insert_nuevo_perfil'); ?>",{descripcion:descripcion},response_nuevo_perfil);
+		});
+
+		function response_nuevo_perfil(data)
+		{
+			info = data.split("|");
+			if(info[1] == "1")
+			{
+				$("#perfil").empty();
+				$("#perfil").html(info[0]);
+				$("input[name=nuevo_perfil]").val("");
+				alerta_message("Se Guardó Correctamente","Mensaje","success");
+			}
+			else
+			{
+				alerta_message("Hubo un error al insertar","Mensaje","error");
+			}
+		}
+
+		//GUARDAR TODO LOS DATOS DEL EMPLEADO
+		$("#btn_enviar").click(function(){
+			var dni = $("input[name=dni]").val();
+			var nombres = $("input[name=nombres]").val();
+			var apellido_paterno = $("input[name=apellido_paterno]").val();
+			var apellido_materno = $("input[name=apellido_materno]").val();
+			var telefono = $("input[name=telefono]").val();
+			var direccion = $("input[name=direccion]").val();
+			var idsector = $("select[name=idsector]").val();
+			var email = $("input[name=email]").val();
+			var idperfil = $("select[name=idperfil_usuario]").val();
+
+			$.post("<?php echo site_url('Personal_c/nuevo'); ?>",
+				{dni:dni,nombres:nombres,apellido_materno:apellido_materno,apellido_paterno:apellido_paterno,telefono:telefono,direccion:direccion,
+					idsector:idsector,email:email,idperfil:idperfil},rpta_empleado);
+
+		});
+
+		function rpta_empleado(rpta_data)
+		{
+
+			if(rpta_data == 1)
+			{
+				alerta_message("Se Guardó Correctamente","Mensaje","success");
+				setTimeout('redireccionar("Personal_c")',1000);
+			}
+			else
+			{
+				alerta_message("Hubo un error al insertar","Mensaje","error");
+				setTimeout('redireccionar("Personal_c")',1000);
+			}
+		}
+
+		function redireccionar(url)
+		{
+			window.location.href = "http://localhost/ecstasy/ecstasy/Personal_c/";
+   			 return false;
+		}
 
 		$("select[name=iddepartamento]").change(function(){
 			$("select[name=iddepartamento] option:selected").each(function(){
@@ -209,9 +314,6 @@
 			}
 
 		});
-
-
-
 
 		$("#provincia").click(function (){
 			var iddepartamento = $("select[name=iddepartamento]").val();
@@ -367,7 +469,7 @@
 			$("#sector").html(info);
 		}
 
-		$("#btn_modal").click(function(){
+		$("#btn_modal_sector").click(function(){
 			var decision = validacion_region();
 			if(decision == false)
 			{
@@ -376,7 +478,7 @@
 
 		})
 
-		$("#boton").click(function(){
+		$("#boton_sector").click(function(){
 
 			var iddistrito = $("select[name=iddistrito]").val();
 			var nuevo_sector = $("input[name=nuevo_sector]").val();

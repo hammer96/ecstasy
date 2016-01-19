@@ -41,3 +41,5 @@
 	<link href="<?php echo base_url();?>public/assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 
 	<link href="<?php echo base_url();?>public/css/dialogo.css" rel="stylesheet" type="text/css"/>
+
+	<link rel="stylesheet" href="<?php echo base_url(); ?>public/css/animations.min.css">

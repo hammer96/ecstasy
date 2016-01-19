@@ -22,8 +22,10 @@ class Personal_m extends CI_Model {
             "clave" => $this->input->post("dni"),
             "telefono" => $this->input->post("telefono"),
             "usuario" => $this->input->post("dni"),
+            "id_perfil_usuario" => $this->input->post("idperfil"),
             "estado" => "1"
             );
+
 
         $r = $this->db->insert("empleado",$datos);
         return $r;
