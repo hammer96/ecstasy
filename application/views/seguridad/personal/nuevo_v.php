@@ -275,24 +275,23 @@
 
 		function rpta_empleado(rpta_data)
 		{
-
-			if(rpta_data == 1)
+			if(rpta_data == 0)
 			{
-				alerta_message("Se Guardó Correctamente","Mensaje","success");
-				setTimeout('redireccionar("Personal_c")',1000);
+				window.location = "<?php echo site_url('Personal_c'); ?>";
 			}
 			else
 			{
-				alerta_message("Hubo un error al insertar","Mensaje","error");
-				setTimeout('redireccionar("Personal_c")',1000);
+
+
+
 			}
 		}
 
-		function redireccionar(url)
+		function redireccionar()
 		{
-			window.location.href = "http://localhost/ecstasy/ecstasy/Personal_c/";
-   			 return false;
+			window.location = "<?php echo site_url('Personal_c'); ?>";
 		}
+
 
 		$("select[name=iddepartamento]").change(function(){
 			$("select[name=iddepartamento] option:selected").each(function(){

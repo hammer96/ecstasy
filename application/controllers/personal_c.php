@@ -82,14 +82,13 @@ class Personal_c extends CI_Controller {
 				$r = $this->Personal_m->insertar();
 				if($r)
 				{
-					echo 1;
+					echo "1";
 				}
 				else
 				{
-					echo 0;
+					echo "0";
 				}
 			}
-			// redirect("Personal_c");
 		}
 		else
 		{

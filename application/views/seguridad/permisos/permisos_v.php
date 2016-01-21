@@ -99,16 +99,14 @@
 	</div>
 
 	<?php include('includes/pie.inc');?>
-	<div id="js">
-		<?php include('includes/js_principal.inc');?>
+
+	<?php include('includes/js_principal.inc');?>
 
 
-	</div>
+
 
 	<script>
-		$(document).ready(function(){
 
-		});
 
 		function traer_permisos(idperfil)
 		{

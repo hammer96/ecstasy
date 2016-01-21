@@ -62,7 +62,7 @@
 		<script src="<?php echo base_url();?>public/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
 		<script src="<?php echo base_url();?>public/assets/js/ui-modals.js"></script>
 
-		<script src="<?php echo base_url(); ?>public/js/animations.js"></script>
+
 
 		<script>
 			jQuery(document).ready(function() {
